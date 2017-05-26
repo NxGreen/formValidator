@@ -1,0 +1,61 @@
+@charset "UTF-8";
+/* CSS Document */
+html, body, div, p, a, h1 ~ h6 { font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif; }
+
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, form, input, textarea, p, th, td, span, a, i { margin: 0; padding: 0; }
+
+input[type=button] { -webkit-appearance: none; outline: none; }
+
+dt { font-weight: normal; }
+
+p { margin-bottom: 0; }
+
+ul { padding-left: 0; list-style: none; }
+
+input { outline: none; }
+
+.clear { zoom: 1; clear: both; }
+.clear:after { content: ""; display: block; clear: both; }
+
+.card_page { width: 530px; margin: 0 auto; }
+
+.card_head { background-color: #008e9d; }
+.card_head .logo { display: block; height: 50px; background: #008e9d url(../img/logo_white.png) 70px center no-repeat; }
+.card_head h2 { padding-bottom: 10px; height: 40px; font-size: 24px; line-height: 40px; color: #fff; text-align: center; }
+
+select { /*Chrome和Firefox里面的边框是不一样的，所以复写了一下*/ border: solid 1px #000; /*很关键：将默认的select选择框样式清除*/ appearance: none; -moz-appearance: none; -webkit-appearance: none; /*在选择框的最右侧中间显示小箭头图片*/ background: url("../img/arrow.png") no-repeat scroll 95% center transparent; /*为下拉小箭头留出一点位置，避免被文字覆盖*/ padding-right: 14px; }
+
+/*清除ie的默认选择框样式清除，隐藏下拉箭头*/
+select::-ms-expand { display: none; }
+
+.card_form { padding: 20px 50px; }
+.card_form .item { margin-bottom: 30px; }
+.card_form .item .lab { position: relative; top: -3px; font-size: 14px; line-height: 22px; color: #555; }
+.card_form .item .lab span { color: #e72c2c; }
+.card_form .item .inpbox { position: relative; }
+.card_form .item .inp { padding: 0 45px; border: 1px #d2d2d2 solid; border-radius: 2px; height: 40px; line-height: 40px; box-sizing: border-box; width: 100%; vertical-align: middle; }
+.card_form .item .inp:focus { border: 1px #50c1e9 solid; }
+.card_form .item .selbox { position: relative; }
+.card_form .item .selbox select { padding-right: 0\0; padding-bottom: 8px; }
+.card_form .item .selbox:before { content: ''; display: block; position: absolute; right: 1px; top: 1px; height: 38px; width: 20px; background-color: #fff; pointer-events: none; }
+.card_form .item .submit { width: 100%; background-color: #008e9d; font-size: 16px; line-height: 40px; border: 0; cursor: pointer; color: #fff; border-radius: 2px; }
+.card_form .item .namebg { position: absolute; left: 1px; top: 1px; width: 40px; height: 38px; background: #f1f2f6 url(../img/card_icon.png) 0 0 no-repeat; }
+.card_form .item .phonebg { position: absolute; left: 1px; top: 1px; width: 40px; height: 38px; background: #f1f2f6 url(../img/card_icon.png) 0 -40px no-repeat; }
+.card_form .item .mailbg { position: absolute; left: 1px; top: 1px; width: 40px; height: 38px; background: #f1f2f6 url(../img/card_icon.png) 0 -80px no-repeat; }
+.card_form .item .companybg { position: absolute; left: 1px; top: 1px; width: 40px; height: 38px; background: #f1f2f6 url(../img/card_icon.png) 0 -120px no-repeat; }
+.card_form .item .jobbg { position: absolute; left: 1px; top: 1px; width: 40px; height: 38px; background: #f1f2f6 url(../img/card_icon.png) 0 -160px no-repeat; }
+.card_form .item .tips { display: none; position: absolute; left: 0; top: 45px; font-size: 12px; background: #ee8f97; color: #fff; line-height: 24px; border-radius: 2px; padding: 0 10px; }
+.card_form .item .tips:before { display: block; content: ''; position: absolute; left: 10px; top: -5px; width: 0; height: 0; font-size: 0; border-width: 0 5px 5px; border-style: solid; border-color: transparent transparent #ee8f97; }
+.card_form .item.error .tips { display: block; }
+.card_form .item .inpfocus { display: none; position: absolute; top: 10px; right: 10px; width: 16px; height: 16px; background-image: url(../img/trial_err2.png); background-position: 98% 50%; background-repeat: no-repeat; cursor: pointer; background-size: 16px 16px; background-attachment: scroll; }
+
+.card_suc { padding: 0 50px; }
+.card_suc h2 { margin: 50px auto; font-size: 28px; color: #008e9d; text-align: center; }
+.card_suc .card_text { padding-left: 40px; font-size: 14px; color: #555; line-height: 30px; }
+.card_suc .more { display: block; margin: 70px 0 30px 0; font-size: 14px; color: #008e9d; line-height: 22px; text-align: center; }
+
+@media (max-width: 530px) { .card_page { width: 100%; }
+  select { background: url("../img/arrow.png") no-repeat scroll 92% center transparent; }
+  .card_form { padding: 20px 25px; } }
+
+/*# sourceMappingURL=card_form.css.map */
