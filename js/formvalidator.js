@@ -25,8 +25,11 @@ $().initValidator({
 	}
 });
 
-
+2017.05.31 
+1.修复verify 深复制的问题
+2.增加单选，多选按钮的验证 支持必填
 */
+
 $.fn.extend({
 	initValidator:function(option){
 		var def={
@@ -42,16 +45,24 @@ $.fn.extend({
 				password: [/^[\S]{4,20}$/i, '密码只能由4-20个字符组成'],
 				username: [/^[\S]{1,100}$/i, '请输入有效的用户名'],
 				code: [/^([a-zA-Z0-9]){4}$/, '请输入有效的验证码'],
-				phone: [/^(13[0-9]|14[0-9]|15[0-9]|17[0-9]|18[0-9])\d{8}$/, '请输入有效的手机号码']
+				phone: [/^(13[0-9]|14[0-9]|15[0-9]|17[0-9]|18[0-9])\d{8}$/, '请输入有效的手机号码'],
+				range:[]
 			}
 		}
-		var opts=$.extend({},def,option);
+		var opts=$.extend(true,{},def,option);
 		// console.log(opts);
+
 		var verifyElem=$(opts.form).find("*[data-verify]");
 		$(verifyElem).each(function(index, el) {
-			$(el).on('blur', function(event) {
+			var _type=$(el).attr("type"),evenname;
+			if(_type=="radio"||_type=="checkbox"){ 
+				evenname='change';
+			}else{
+				evenname='blur';
+			}
+			$(el).on(evenname, function(event) {
 				event.preventDefault();
-				// console.log('blur')
+				console.log(evenname)
 				$().inputValidator(opts,$(el));
 			});
 		});
@@ -101,25 +112,46 @@ $.fn.extend({
 		var _this=$(input),value=_this.val(),flag=true, //默认通过验证
 			ver=_this.attr("data-verify").split('|'),tips='',
 			parent_div=_this.parents(opts.parent_div),
+			_type=_this.attr("type"),
+			_name=_this.attr("name"),
 			verify = opts.verify;
-			tips_div=_this.parents(opts.parent_div).find(opts.tips);
+		tips_div=_this.parents(opts.parent_div).find(opts.tips);
 		// console.log(tips_div)
-		$.each(ver,function(i, item) {
-			var isFn = typeof verify[item] === 'function';
-			if(verify[item] && (isFn ? tips = verify[item](value, item) : !verify[item][0].test(value)) ){ //验证没通过
-				tips_div.html(tips||verify[item][1]).show();
-				_this.addClass(opts.err_class);
-				parent_div.addClass(opts.err_class);
-				flag=false;
-				return flag;
+		if(_type=="radio"||_type=="checkbox"){ //单选，多选
+			var _val=parent_div.find('input[name="'+_name+'"]:checked').val();
+			if(_val==undefined||_val==""){
+				$().showErrorMsg(opts,_this,tips||verify['required'][1]);
+				flag=false;return flag;
 			}else{
-				tips_div.empty().hide();
-				_this.removeClass(opts.err_class);
-				parent_div.removeClass(opts.err_class);
+				$().showSuccessMsg(opts,_this);
 			}
-		});
+		}else{ //下拉框，密码框，文本框等
+			$.each(ver,function(i, item) {
+				var isFn = typeof verify[item] === 'function';
+				if(verify[item] && (isFn ? tips = verify[item](value, item) : !verify[item][0].test(value)) ){ //验证没通过
+					$().showErrorMsg(opts,_this,tips||verify[item][1]);
+					flag=false;return flag;
+				}else{
+					$().showSuccessMsg(opts,_this);
+				}
+			});
+		}
 		return flag;
-	}
+	},
+	showErrorMsg:function(opts,inp,msg){
+		var parent_div=$(inp).parents(opts.parent_div),
+			tips_div=$(inp).parents(opts.parent_div).find(opts.tips);
+		tips_div.html(msg).show();
+		$(inp).addClass(opts.err_class);
+		parent_div.addClass(opts.err_class);
+	},
+	showSuccessMsg:function(opts,inp){
+		var parent_div=$(inp).parents(opts.parent_div),
+			tips_div=$(inp).parents(opts.parent_div).find(opts.tips);
+		tips_div.empty().hide();
+		$(inp).removeClass(opts.err_class);
+		parent_div.removeClass(opts.err_class);
+	},
 })
 
 $().initValidator({

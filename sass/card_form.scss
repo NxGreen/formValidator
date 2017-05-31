@@ -84,6 +84,7 @@ select::-ms-expand { display: none; }
        padding:0 45px; border:1px #d2d2d2 solid; border-radius:2px; height:40px; line-height: 40px; box-sizing: border-box; width:100%; vertical-align: middle;
       &:focus{ border:1px #50c1e9 solid;}
     }
+    .inp_radio{}
     .selbox{
       position: relative;
        select{ padding-right: 0\0; padding-bottom: 8px;}
